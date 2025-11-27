@@ -22,11 +22,5 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # If you add tests later, update this:
-      - name: Run tests (optional)
-        run: |
-          if [ -f package.json ] && jq -e '.scripts.test' package.json > /dev/null; then
-            npm test
-          else
-            echo "No test script defined, skipping tests."
-          fi
+      - name: Run tests
+        run: npm test

@@ -1,8 +1,8 @@
 // express-server/server.js
-import express from "express";
-import bodyParser from "body-parser";
-import crypto from "crypto";
-import dotenv from "dotenv";
+const express = require("express");
+const bodyParser = require("body-parser");
+const crypto = require("crypto");
+const dotenv = require("dotenv");
 dotenv.config();
 
 const PORT = process.env.PORT || 4000;
@@ -80,8 +80,19 @@ app.get("/api/protected-data", requireApiToken, (req, res) => {
   res.json({ hello: "world", user: req.user });
 });
 
-app.listen(PORT, () => {
-  console.log("Express CLI session server listening on http://localhost:4000");
-});
+// Export app for testing
+function createServer() {
+  return app;
+}
+
+module.exports = { createServer };
+
+if (process.env.NODE_ENV !== "test") {
+  app.listen(PORT, () => {
+    console.log(
+      "Express CLI session server listening on http://localhost:4000"
+    );
+  });
+}
 
 // Test new deployed...
