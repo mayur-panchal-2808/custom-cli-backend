@@ -1,0 +1,32 @@
+name: Backend CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22' 
+
+      - name: Install dependencies
+        run: npm install
+
+      # If you add tests later, update this:
+      - name: Run tests (optional)
+        run: |
+          if [ -f package.json ] && jq -e '.scripts.test' package.json > /dev/null; then
+            npm test
+          else
+            echo "No test script defined, skipping tests."
+          fi
