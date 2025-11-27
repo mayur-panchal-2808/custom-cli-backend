@@ -83,3 +83,5 @@ app.get("/api/protected-data", requireApiToken, (req, res) => {
 app.listen(PORT, () => {
   console.log("Express CLI session server listening on http://localhost:4000");
 });
+
+// Test new deployed...
